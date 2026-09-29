@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
   <title>নান্দুড়া অগ্রদূত ক্লাব</title>
   <meta name="description" content="নান্দুড়া অগ্রদূত ক্লাব, নান্দুড়া, শিবগঞ্জ, বগুড়া। সেবা | ঐক্য | উন্নয়ন | মানবতা। যুব সমাজ গড়বে আগামীর সমাজ।">
 
@@ -24,7 +24,7 @@
   <!-- Google Fonts: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,500&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,500&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -685,6 +685,18 @@
     #photo-remove, .link-btn { display: inline; margin: 0 12px 0 0; padding: 0; font: inherit; font-size: .8rem; font-weight: 500; color: var(--slate); background: none; border: 0; text-decoration: underline; cursor: pointer; }
     #photo-remove[hidden] ~ .link-btn { display: none; }
 
+    /* Photo: clean upload card (click or drag and drop) */
+    #photo-row { flex-direction: column; justify-content: center; gap: 0; padding: 26px 16px 20px; text-align: center; background: #fff; border: 1.5px solid #e6e9f0; border-radius: 16px; box-shadow: 0 1px 3px rgba(16,27,50,.06); cursor: pointer; }
+    #photo-row:hover { border-color: #c9d0df; }
+    #photo-row.dragover { border-color: var(--navy); border-style: dashed; background: #f3f6fc; }
+    #photo-thumb { width: 44px; height: 44px; margin-bottom: 12px; border: 0 !important; background-color: transparent; color: var(--navy); cursor: pointer; }
+    #photo-thumb:hover { transform: none; }
+    #photo-thumb.has-photo { width: 92px; height: 92px; border: 3px solid var(--gold) !important; background-color: #eef1f8; }
+    #photo-controls { flex: none; width: 100%; }
+    #photo-row .drop-title { font-size: .95rem; font-weight: 700; color: #1a1f2b; }
+    #photo-row .drop-sub { font-size: .78rem; color: #9aa1b0; margin: 6px 0 0; }
+    #photo-row .link-btn, #photo-row #photo-remove { margin: 12px 8px 0; }
+
     /* Photo framer as a modal */
     #photo-framer { position: fixed; inset: 0; z-index: 50; margin: 0; padding: 16px; display: flex; align-items: center; justify-content: center; background: rgba(16,27,50,.6); backdrop-filter: blur(3px); }
     #photo-framer[hidden] { display: none; }
@@ -793,6 +805,200 @@
     .iab-actions button { padding: 8px 14px; font: inherit; font-size: .82rem; font-weight: 600; color: #fff; background: var(--navy); border: 0; border-radius: 10px; cursor: pointer; }
     #iab-copy { color: var(--navy); background: #fff; border: 1px solid var(--navy); }
   </style>
+
+  <style>
+    /* =========================================================
+       A4 MEMBERSHIP FORM (replaces the old welcome card)
+       Design size 794 x 1123 px  =  210 x 297 mm at 96 dpi
+       ========================================================= */
+    #card-preview { max-width: 880px; padding: 20px 12px; }
+    #card-scaler, #card-scaler2 { position: relative; margin: 0 auto; width: 794px; height: 1123px; overflow: hidden; background: #fff; box-shadow: 0 8px 30px -8px rgba(0,0,0,.28); }
+    #card-preview #card-frame, #card-preview #card-frame2 {
+      position: absolute; top: 0; left: 0; width: 794px; height: 1123px; max-width: none; aspect-ratio: auto;
+      margin: 0; padding: 30px 0 32px; background: #fff; border-radius: 0; box-shadow: none; animation: none;
+      display: flex; flex-direction: column; overflow: hidden; transform-origin: top left;
+      color: #1f1f1f; font-family: "Noto Sans Bengali", "Hind Siliguri", "Kalpurush", "Nirmala UI", sans-serif;
+      font-size: 12px; line-height: 1.5; text-align: left;
+    }
+    #card-frame *, #card-frame2 * { box-sizing: border-box; }
+    #card-scaler2 { margin-top: 18px; }
+    #card-scaler2[hidden] { display: none; }
+    .cf-head { width: 614px; margin-left: 41px; text-align: center; }
+    .cf-head .bism { font-size: 13px; line-height: 20px; font-weight: 600; color: #186d46; }
+    .cf-head .cname { font-size: 31px; line-height: 42px; font-weight: 700; color: #133b81; }
+    .cf-head .ctag { font-size: 15.5px; line-height: 24px; font-weight: 600; color: #133b81; }
+    .cf-head .caddr { font-size: 14.5px; line-height: 22px; font-weight: 700; color: #101010; }
+    .cf-head .cmotto { font-size: 12px; line-height: 20px; font-weight: 600; color: #186d46; }
+    .cf-head .cmotto i { font-style: normal; color: #133b81; margin: 0 3px; }
+    .cf-title { width: 614px; margin: 14px 0 0 41px; text-align: center; font-size: 26px; line-height: 36px; font-weight: 700; color: #0d7044; }
+    #cf-fee { width: 614px; margin: 3px 0 0 41px; text-align: center; font-size: 11.5px; line-height: 18px; font-weight: 700; color: #8a1f24; }
+    #cf-photo { position: absolute; top: 29px; left: 665px; width: 90px; height: 140px; border: 2px solid #133b81; background: #fff; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; text-align: center; }
+    #cf-photo .ph-text { font-size: 10px; line-height: 15px; font-weight: 700; color: #133b81; padding: 4px; }
+    #cf-photo #card-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; box-shadow: none; margin: 0; }
+    #cf-photo.has-photo .ph-text { display: none; }
+    .cf-bar { height: 22px; line-height: 22px; padding-left: 8px; color: #fff; font-size: 13.5px; font-weight: 700; margin-left: 33px; }
+    .cf-navy { background: #133b81; } .cf-green { background: #087744; }
+    .cf-w273 { width: 273px; } .cf-w435 { width: 435px; margin-left: 29px; }
+    #cf-info-bar { margin-top: 11px; }
+    #cf-rows { margin-top: 4px; }
+    .fr { display: flex; height: 26px; margin: 0 72px 0 41px; }
+    .fl { flex: none; width: 273px; height: 26px; display: flex; align-items: flex-end; padding-bottom: 1px; font-size: 12px; line-height: 20px; color: #1f1f1f; }
+    .fv { flex: 1; min-width: 0; height: 26px; display: flex; align-items: flex-end; border-bottom: 1px solid #b0b0b0; padding: 0 0 1px 4px; overflow: hidden; font-size: 13px; line-height: 20px; color: #111; }
+    .fv .t { white-space: nowrap; display: inline-block; }
+    .fr.two { height: 52px; }
+    .fr.two .fl { align-self: flex-start; }
+    .fr.two .fv { display: block; height: 52px; line-height: 26px; padding: 0 0 0 4px; border-bottom: 0;
+      background: linear-gradient(#b0b0b0,#b0b0b0) 0 25px / 100% 1px no-repeat, linear-gradient(#b0b0b0,#b0b0b0) 0 51px / 100% 1px no-repeat; }
+    #cf-decl-bar { margin-top: 30px; }
+    #cf-decl { margin: 10px 79px 0 36px; font-size: 12.5px; line-height: 21px; color: #1f1f1f; }
+    .cf-sig { display: flex; margin: 40px 0 0 36px; font-size: 12px; line-height: 20px; }
+    .cf-sig .c1 { width: 436px; display: flex; } .cf-sig .c2 { display: flex; }
+    .ul { display: inline-block; border-bottom: 1px solid #444; height: 16px; }
+    .cf-sig .c1 .ul { width: 172px; margin-left: 4px; position: relative; }
+    .cf-sig .c2 .ul { width: 36px; margin: 0 3px; text-align: center; font-size: 12px; line-height: 16px; color: #111; }
+    .cf-sig .c2 #cf-date-y { width: 54px; }
+    #cf-office-bar { margin-top: 28px; }
+    .cf-off { display: grid; grid-template-columns: 436px 1fr; margin: 12px 0 0 36px; font-size: 12px; line-height: 20px; }
+    .cf-off > div { display: flex; height: 26px; align-items: flex-end; }
+    .cf-off .ul { flex: 1; margin-left: 4px; }
+    .cf-off .w1 { width: 190px; } .cf-off .w2 { width: 206px; } .cf-off .w3 { width: 207px; }
+    .cf-foot { margin-top: auto; text-align: center; }
+    .cf-foot .fn { font-size: 20px; line-height: 28px; font-weight: 700; color: #133b81; }
+    .cf-foot .fa { font-size: 12.5px; line-height: 20px; font-weight: 700; color: #133b81; }
+
+
+    /* ---------- Page 2: NID copies ---------- */
+    .cf-sub { width: 614px; margin: 4px 0 0 41px; text-align: center; font-size: 13px; line-height: 22px; color: #1f1f1f; }
+    .cf-sub b { font-weight: 700; color: #133b81; }
+    .nid-cap { width: 520px; margin: 26px 0 0 137px; }
+    .nid-box { width: 520px; height: 328px; margin: 8px 0 0 137px; border: 1.5px solid #133b81; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .nid-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+
+    /* NID upload cards */
+    .nid-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 640px) { .nid-row { grid-template-columns: 1fr 1fr; } }
+    .nid-card { --acc: #0e8a8a; border: 1.5px dashed #9cc7ec; border-radius: 16px; background: #f4f9ff; padding: 16px 16px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: border-color .2s, background .2s; }
+    .nid-card.drag { border-color: var(--acc); background: #e8f6f6; }
+    .nid-card.has { border-style: solid; border-color: var(--acc); background: #fff; }
+    .nid-frame { position: relative; width: 100%; aspect-ratio: 1.586; border-radius: 10px; overflow: hidden; background: #e6e6e6; }
+    .nid-frame svg, .nid-frame img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .nid-frame img { object-fit: contain; background: #f1f3f6; }
+    .nid-card:not(.has) .nid-frame img, .nid-card.has .nid-frame svg { display: none; }
+    .nid-btn { font-family: inherit; font-size: .85rem; font-weight: 600; color: var(--acc); background: #fff; border: 1.5px solid var(--acc); border-radius: 8px; padding: 8px 22px; cursor: pointer; }
+    .nid-btn:active { background: #e8f6f6; }
+    .nid-fmt { font-size: .72rem; color: var(--slate); text-align: center; }
+    .nid-file { width: 100%; }
+    .nid-file .row { display: flex; align-items: center; gap: 8px; font-size: .75rem; color: var(--slate); min-height: 24px; }
+    .nid-fname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nid-card.has .nid-fname { color: var(--navy); font-weight: 600; }
+    .nid-pct { font-variant-numeric: tabular-nums; }
+    .nid-bar { height: 3px; background: #d5dde8; border-radius: 3px; overflow: hidden; margin-top: 2px; }
+    .nid-bar i { display: block; height: 100%; width: 0; background: var(--acc); border-radius: 3px; transition: width .2s; }
+    .nid-remove { width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(16,27,50,.85); color: #fff; font-size: 15px; line-height: 24px; padding: 0; cursor: pointer; flex: none; }
+    .nid-remove[hidden] { display: none; }
+
+
+    /* Signature pad */
+    #sig-wrap { position: relative; height: 210px; border: 1.5px dashed #b8c0d0; border-radius: var(--radius-md); background: #fff; overflow: hidden; }
+    #sig-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: crosshair; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+    #sig-line { position: absolute; left: 6%; right: 6%; bottom: 48px; border-bottom: 1.5px solid #d3d9e6; pointer-events: none; }
+    #sig-x { position: absolute; left: 3.5%; bottom: 52px; font-size: 1.1rem; color: #b8c0d0; pointer-events: none; line-height: 1; }
+    #sig-hint { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: .8rem; color: #a3aab8; pointer-events: none; transition: opacity .2s; }
+    #sig-wrap.signed { border-style: solid; border-color: var(--navy); }
+    #sig-wrap.signed #sig-hint { opacity: 0; }
+    #sig-actions { display: flex; gap: 10px; margin-top: 10px; }
+    #sig-actions button { flex: 1; padding: 10px 12px; font-family: inherit; font-size: .85rem; font-weight: 500; color: var(--navy); background: #fff; border: 1.5px solid #dfe3ec; border-radius: var(--radius-md); cursor: pointer; }
+    #sig-actions button:disabled { opacity: .45; cursor: default; }
+    #sig-actions button:not(:disabled):active { background: #f1f3f9; }
+    /* Signature tools + fullscreen */
+    #sig-box { display: block; }
+    #sig-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+    #sig-tools .grp { display: flex; align-items: center; gap: 6px; }
+    #sig-tools .sep { width: 1px; height: 24px; background: #dfe3ec; margin: 0 2px; }
+    .sig-tool { width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; background: #fff; color: var(--navy); border: 1.5px solid #dfe3ec; border-radius: 12px; cursor: pointer; font-family: inherit; }
+    .sig-tool svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sig-tool.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .sig-sw { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px #cfd5e2; cursor: pointer; padding: 0; }
+    .sig-sw.on { box-shadow: 0 0 0 2.5px var(--navy); }
+    .sig-dot { width: 40px; height: 40px; }
+    .sig-dot i { display: block; border-radius: 50%; background: currentColor; }
+    #sig-fs-top, #sig-done { display: none; }
+    #sig-box.full { position: fixed; inset: 0; z-index: 9999; background: #fff; display: flex; flex-direction: column; padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px calc(env(safe-area-inset-bottom, 0px) + 12px); overflow: auto; }
+    #sig-box.full #sig-fs-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: var(--navy); }
+    #sig-box.full #sig-wrap { flex: 1; height: auto; min-height: 0; }
+    #sig-box.full #sig-done { display: block; flex: 1.4 !important; background: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
+    #sig-box.full #sig-fs-btn { display: none; }
+    body.sig-lock { overflow: hidden; }
+    #sig-img { position: absolute; left: 0; bottom: 1px; width: 100%; height: 46px; object-fit: contain; object-position: center bottom; }
+    #sig-img[hidden] { display: none; }
+
+    /* ---------- Print: exactly one A4 page, no browser margins ---------- */
+    @page { size: A4 portrait; margin: 0; }
+    @media print {
+      html, body { width: 210mm; margin: 0 !important; padding: 0 !important; background: #fff !important; }
+      body > *:not(main) { display: none !important; }
+      main > *:not(#card-preview) { display: none !important; }
+      #card-preview { display: block !important; max-width: none !important; width: 210mm !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; background: #fff !important; }
+      #card-preview > *:not(#card-scaler):not(#card-scaler2) { display: none !important; }
+      #card-scaler, #card-scaler2 { width: 210mm !important; height: 296.5mm !important; margin: 0 !important; box-shadow: none !important; overflow: hidden !important; }
+      #card-scaler2 { break-before: page; page-break-before: always; }
+      #card-scaler2[hidden] { display: none !important; }
+      #card-preview #card-frame, #card-preview #card-frame2 { transform: none !important; width: 210mm !important; height: 296.5mm !important; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+  <style>
+    /* ===== v6: form design refresh (blue / navy / white palette). Scoped to the form so the welcome card keeps its own themes ===== */
+    body { font-family: "Inter", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: #eef2f7; }
+    #site-header #club-name-title { color: #0f172a; letter-spacing: -.2px; }
+    #site-tagline { color: #64748b; }
+    #form-section { --navy: #0f172a; --navy-deep: #0b1220; --gold: #1592ff; --gold-soft: #cfe6ff; --ink: #1e293b; --slate: #64748b; --blue: #1592ff; --blue-dark: #0a6cf5;
+      border-radius: 22px; padding: 22px 20px 24px; border: 1px solid #e3e9f2; box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 18px 40px -22px rgba(15,23,42,.18); }
+    #form-head { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #e8edf4; }
+    .fh-ic { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #4f46e5; background: linear-gradient(135deg, #f1efff, #dfe3ff); box-shadow: 0 0 0 1px #e3e6ff inset; }
+    #form-section #form-heading { margin: 0; text-align: left; font-size: 1.02rem; font-weight: 600; color: #0f172a; }
+    #form-subtitle { font-size: .78rem; color: #64748b; line-height: 1.4; margin-top: 1px; }
+    /* Top loading-style progress bar (like a page-load bar) */
+    #form-progress { position: fixed; z-index: 10000; top: 0; left: 0; right: 0; height: 4px; pointer-events: none; transition: opacity .3s; }
+    #form-progress.away { opacity: 0; }
+    #fp-fill { position: relative; height: 100%; width: 0; border-radius: 0 4px 4px 0; background: linear-gradient(90deg, #0a6cf5, #1592ff 60%, #62b4ff); box-shadow: 0 0 10px rgba(21,146,255,.75); transition: width .6s cubic-bezier(.22,1,.36,1), background .4s; }
+    #fp-fill::after { content: ""; position: absolute; right: 0; top: 50%; width: 12px; height: 12px; margin: -6px -3px 0 0; border-radius: 50%; background: #62b4ff; box-shadow: 0 0 12px 4px rgba(21,146,255,.7); opacity: 0; transition: opacity .3s; }
+    #fp-fill.on::after { opacity: 1; }
+    #form-progress.done #fp-fill { background: linear-gradient(90deg, #16a34a, #22c55e, #4ade80); box-shadow: 0 0 10px rgba(34,197,94,.75); }
+    #form-progress.done #fp-fill::after { background: #4ade80; box-shadow: 0 0 12px 4px rgba(34,197,94,.7); }
+    #fp-tip { position: fixed; z-index: 10000; top: 12px; right: 12px; padding: 5px 12px; font-size: .78rem; font-weight: 600; color: #fff; background: rgba(15,23,42,.92); border-radius: 999px; box-shadow: 0 8px 20px -8px rgba(2,8,23,.6); opacity: 0; transform: translateY(-8px); transition: opacity .25s, transform .25s; pointer-events: none; }
+    #fp-tip.show { opacity: 1; transform: none; }
+    #form-progress.done ~ #fp-tip { background: #16a34a; }
+    #form-section .form-sub { display: flex; align-items: center; gap: 8px; margin: 26px 0 14px; padding: 0 0 10px; font-size: .92rem; font-weight: 600; color: #0f172a; border-bottom: 1px solid #e8edf4; }
+    #form-section .form-sub::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px #dbeeff; }
+    #form-section .form-group label { font-size: .82rem; font-weight: 500; color: #475569; margin-bottom: 7px; }
+    #membership-form .form-group > label:not(.toggle):not(:has(.optional))::after { content: " *"; color: #ef4444; }
+    #form-section .form-group .optional { color: #94a3b8; font-weight: 400; }
+    #form-section .form-group input:not([type="checkbox"]), #form-section .form-group select, #form-section .form-group textarea {
+      background-color: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 13px 14px; color: #0f172a; }
+    #form-section .form-group input::placeholder, #form-section .form-group textarea::placeholder { color: #a5b0c0; }
+    #form-section .form-group input:not([type="checkbox"]):focus, #form-section .form-group select:focus, #form-section .form-group textarea:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 4px rgba(21,146,255,.14); }
+    #form-section .form-group input[aria-invalid="true"] { border-color: #ef4444; box-shadow: 0 0 0 4px rgba(239,68,68,.10); }
+    #form-section .form-group .toggle input { accent-color: var(--blue); }
+    #form-section .field-error { color: #dc2626; }
+    #form-section .seg button { background: #fff; border-color: #e2e8f0; border-radius: 12px; }
+    #form-section .seg button:hover { border-color: var(--blue); }
+    #form-section .seg button[aria-checked="true"] { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 6px 14px -6px rgba(21,146,255,.7); }
+    #form-section .decl { background: #f2f8ff; border-color: #cfe3fb; border-radius: 12px; }
+    #form-section .nid-card { --acc: #1592ff; border-radius: 16px; }
+    #form-section #photo-row { border-radius: 16px; }
+    #form-section .nid-card, #form-section #photo-row { background: #fff; }
+    #form-section #sig-wrap { border-radius: 14px; }
+    #form-section #sig-actions button { border-radius: 12px; }
+    #generate-btn { padding: 15px; margin-top: 10px; border-radius: 14px; font-size: 1rem; font-weight: 600;
+      background: linear-gradient(180deg, #2f9fff, #0a6cf5); box-shadow: 0 10px 22px -10px rgba(10,108,245,.75), inset 0 1px 0 rgba(255,255,255,.25); transition: transform .15s, box-shadow .2s, filter .2s; }
+    #generate-btn:hover { background: linear-gradient(180deg, #2f9fff, #0a6cf5); filter: brightness(1.05); }
+    #generate-btn:active { transform: scale(.98); }
+    html[lang="bn"] #form-section .form-group label { line-height: 1.6; }
+  </style>
 </head>
 <body>
 
@@ -817,7 +1023,11 @@
 
     <!-- ===================== FORM SECTION ===================== -->
     <section id="form-section" aria-labelledby="form-heading">
-      <h2 id="form-heading" data-i18n="formHeading">Enter Member Details</h2>
+      <div id="form-head">
+        <span class="fh-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.5-5.6 7-5.6s6.4 2 7 5.6"/></svg></span>
+        <div><h2 id="form-heading" data-i18n="formHeading">Member Details</h2>
+        <p id="form-subtitle" data-i18n="formSub">Tell us about the member so we can prepare the welcome card</p></div>
+      </div>
 
       <form id="membership-form" novalidate>
         <h3 class="form-sub" data-i18n="secInfo">Member Information</h3>
@@ -841,6 +1051,10 @@
         <div class="form-group">
           <label for="member-idno"><span data-i18n="idNo">NID / Birth Registration No.</span></label>
           <input id="member-idno" name="member-idno" type="text" inputmode="numeric" maxlength="20" data-check="idno" data-i18n-placeholder="idNoPh" placeholder="10 to 17 digits" autocomplete="off" data-extra>
+        </div>
+        <div class="form-group">
+          <label for="member-gender"><span data-i18n="gender">Gender</span></label>
+          <select id="member-gender" name="member-gender" data-extra><option value="" disabled selected data-i18n="selectGender">Select gender</option><option value="male" data-i18n="gender_male">Male</option><option value="female" data-i18n="gender_female">Female</option><option value="other" data-i18n="gender_other">Other</option></select>
         </div>
         <div class="form-group">
           <label for="member-occupation"><span data-i18n="occupation">Occupation</span></label>
@@ -869,6 +1083,14 @@
           <input id="member-district" name="member-district" type="text" maxlength="40" data-default="defDistrict" value="Bogura" data-extra>
         </div>
         </div>
+        <div class="form-group">
+          <label for="member-present"><span data-i18n="presentAddress">Present Address</span></label>
+          <input id="member-present" name="member-present" type="text" maxlength="80" autocomplete="off" data-i18n-placeholder="presentPh" placeholder="e.g. city, country" data-extra>
+          <label class="toggle" for="member-present-skip" style="margin-top:10px">
+            <input type="checkbox" id="member-present-skip">
+            <span data-i18n="noPresent">I don't have a separate current address (skip)</span>
+          </label>
+        </div>
         <h3 class="form-sub" data-i18n="secContact">Contact & Other Details</h3>
         <div class="form-group">
           <label for="member-mobile"><span data-i18n="mobile">Mobile Number</span></label>
@@ -884,16 +1106,16 @@
         </div>
         <div class="form-group">
           <label for="member-reason"><span data-i18n="reason">Reason / Interest in Joining as a Member</span></label>
-          <textarea id="member-reason" name="member-reason" rows="3" maxlength="300" data-extra></textarea>
+          <textarea id="member-reason" name="member-reason" rows="3" maxlength="150" data-extra></textarea>
         </div>
         <div class="form-group">
           <label for="member-photo"><span data-i18n="photo">Photo</span> <span class="optional" data-i18n="optional">(optional)</span></label>
           <div id="photo-row">
-            <label id="photo-thumb" for="member-photo" tabindex="0" role="button" data-i18n-aria="uploadPhoto" aria-label="Upload photo"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z"/></svg></label>
+            <label id="photo-thumb" for="member-photo" tabindex="0" role="button" data-i18n-aria="uploadPhoto" aria-label="Upload photo"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5V6a2 2 0 0 1 2-2h3.2l2 2H18a2 2 0 0 1 2 2v1.5"/><path d="M4 7.5h16v10.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M12 11v6M9 14h6"/></svg></label>
             <div id="photo-controls">
               <p class="drop-title" data-i18n="dropTitle">Tap or drop a photo</p>
               <p class="drop-sub" data-i18n="dropSub">JPG or PNG, up to 8 MB</p>
-              <input type="file" id="member-photo" name="member-photo" accept="image/*" class="sr-only">
+              <input type="file" id="member-photo" name="member-photo" accept="image/jpeg,image/png" class="sr-only">
               <button type="button" id="photo-remove" data-i18n="remove" hidden>Remove</button>
               <button type="button" id="photo-adjust" class="link-btn" data-i18n="adjust">Adjust</button>
             </div>
@@ -915,13 +1137,66 @@
           </div>
         </div>
 
-        <h3 class="form-sub" data-i18n="secDeclaration">Member's Declaration</h3>
-        <p class="decl" data-i18n="declaration">I will abide by the club's aims and constitution, and pledge to support its social, humanitarian, sports and development activities according to my ability.</p>
-        <div class="form-group">
-          <label class="toggle" for="member-agree">
-            <input type="checkbox" id="member-agree" data-extra>
-            <span data-i18n="agreeLabel">I agree to the declaration above</span>
-          </label>
+        <div class="form-group" id="nid-group">
+          <label><span data-i18n="nidLabel">NID / Birth Certificate copy</span></label>
+          <div class="nid-row">
+            <div class="nid-card" id="nid-front-tile">
+              <div class="nid-frame">
+                <svg viewBox="0 0 238 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="238" height="150" fill="#e6e6e6"/><rect width="238" height="26" fill="#a9a9a9"/><circle cx="60" cy="78" r="26" fill="#fff"/><path d="M22 150c4-30 24-40 38-40s34 10 38 40z" fill="#fff"/><rect x="120" y="70" width="90" height="8" rx="2" fill="#fff"/><rect x="120" y="92" width="90" height="8" rx="2" fill="#fff"/><rect x="120" y="114" width="90" height="8" rx="2" fill="#fff"/></svg>
+                <img id="nid-front-prev" alt="">
+              </div>
+              <button type="button" class="nid-btn" id="nid-front-btn" data-i18n="nidBtnFront">Upload Front</button>
+              <div class="nid-fmt" data-i18n="nidFormats">Supported formats: JPEG, PNG</div>
+              <div class="nid-file">
+                <div class="row"><span class="nid-fname" id="nid-front-name" data-i18n="nidNone">No file chosen</span><span class="nid-pct" id="nid-front-pct"></span><button type="button" class="nid-remove" id="nid-front-rm" aria-label="Remove" hidden>&times;</button></div>
+                <div class="nid-bar"><i id="nid-front-bar"></i></div>
+              </div>
+              <input type="file" id="nid-front" accept="image/jpeg,image/png" class="sr-only">
+            </div>
+            <div class="nid-card" id="nid-back-tile">
+              <div class="nid-frame">
+                <svg viewBox="0 0 238 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="238" height="150" fill="#e6e6e6"/><rect width="238" height="26" fill="#a9a9a9"/><rect x="24" y="70" width="190" height="8" rx="2" fill="#fff"/><rect x="24" y="92" width="190" height="8" rx="2" fill="#fff"/><rect x="24" y="114" width="190" height="8" rx="2" fill="#fff"/></svg>
+                <img id="nid-back-prev" alt="">
+              </div>
+              <button type="button" class="nid-btn" id="nid-back-btn" data-i18n="nidBtnBack">Upload Back</button>
+              <div class="nid-fmt" data-i18n="nidFormats">Supported formats: JPEG, PNG</div>
+              <div class="nid-file">
+                <div class="row"><span class="nid-fname" id="nid-back-name" data-i18n="nidNone">No file chosen</span><span class="nid-pct" id="nid-back-pct"></span><button type="button" class="nid-remove" id="nid-back-rm" aria-label="Remove" hidden>&times;</button></div>
+                <div class="nid-bar"><i id="nid-back-bar"></i></div>
+              </div>
+              <input type="file" id="nid-back" accept="image/jpeg,image/png" class="sr-only">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="sig-group">
+          <label><span data-i18n="sigLabel">Applicant's signature</span></label>
+          <div id="sig-box">
+            <div id="sig-fs-top"><span data-i18n="sigLabel">Applicant's signature</span>
+              <button type="button" class="sig-tool" id="sig-exit" data-i18n-title="sigExit" title="Exit full screen" aria-label="Exit full screen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+            <div id="sig-tools" role="toolbar">
+              <div class="grp">
+                <button type="button" class="sig-tool on" id="sig-pen" data-i18n-title="sigPen" title="Pen" aria-label="Pen"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11a2.1 2.1 0 0 0-3-3L5 16l-1 4z"/><path d="M14 7l3 3"/></svg></button>
+                <button type="button" class="sig-tool" id="sig-eraser" data-i18n-title="sigEraser" title="Eraser" aria-label="Eraser"><svg viewBox="0 0 24 24"><path d="M9 20h11"/><path d="M5.5 15.5L14 7l4 4-6.5 6.5a2 2 0 0 1-2.8 0l-3.2-3.2a1 1 0 0 1 0-1.3z"/></svg></button>
+              </div>
+              <span class="sep"></span>
+              <div class="grp" id="sig-colors"></div>
+              <span class="sep"></span>
+              <div class="grp" id="sig-sizes"></div>
+              <button type="button" class="sig-tool" id="sig-fs-btn" data-i18n-title="sigFull" title="Full screen" aria-label="Full screen" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+            </div>
+            <div id="sig-wrap">
+              <canvas id="sig-canvas" aria-label="Signature pad"></canvas>
+              <span id="sig-x" aria-hidden="true">&times;</span>
+              <span id="sig-line" aria-hidden="true"></span>
+              <span id="sig-hint" data-i18n="sigHint">Sign here with your finger or mouse</span>
+            </div>
+            <div id="sig-actions">
+              <button type="button" id="sig-undo" data-i18n="sigUndo" disabled>Undo</button>
+              <button type="button" id="sig-clear" data-i18n="sigClear" disabled>Clear</button>
+              <button type="button" id="sig-done" data-i18n="sigDone">Done</button>
+            </div>
+          </div>
         </div>
 
         <button type="submit" id="generate-btn" data-i18n="generate">Generate Welcome Card</button>
@@ -933,58 +1208,81 @@
     <section id="card-preview" aria-labelledby="preview-heading" hidden>
       <h2 id="preview-heading" data-i18n="previewHeading">Welcome Card Preview</h2>
 
-      <div id="card-frame">
-        <span class="card-line" aria-hidden="true"></span>
-        <span class="card-corner tl" aria-hidden="true"></span>
-        <span class="card-corner tr" aria-hidden="true"></span>
-        <span class="card-corner bl" aria-hidden="true"></span>
-        <span class="card-corner br" aria-hidden="true"></span>
-        <div id="card-header">
-          <span id="card-club-name">Club Name</span>
-        </div>
-
-        <div id="card-body">
-          <div id="card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.4 4.3 1 6.1L12 16.9l-5.4 2.9 1-6.1-4.4-4.3 6.1-.8z"/></svg>
+      <div id="card-scaler">
+        <div id="card-frame">
+          <div id="cf-photo"><span class="ph-text">সদস্যের<br>পাসপোর্ট<br>সাইজ ছবি</span><img id="card-photo" alt="" hidden></div>
+          <div class="cf-head">
+            <div class="bism">বিসমিল্লাহির রাহমানির রাহিম</div>
+            <div class="cname">নান্দুড়া অগ্রদূত ক্লাব</div>
+            <div class="ctag">যুব সমাজ গড়বে আগামীর সমাজ</div>
+            <div class="caddr">নান্দুড়া, শিবগঞ্জ, বগুড়া</div>
+            <div class="cmotto">সেবা <i>|</i> ঐক্য <i>|</i> উন্নয়ন <i>|</i> মানবতা</div>
           </div>
-          <img id="card-photo" alt="Member photo" hidden>
-          <p id="card-welcome-text" data-i18n="welcome">Welcome to the family</p>
-          <h3 id="card-member-name">Member Name</h3>
-
-          <div id="card-statement">
-            <h4 id="stmt-title" data-i18n="stmtTitle">Declaration &amp; Information Statement</h4>
-            <div id="stmt-rows"></div>
-            <p id="stmt-4"></p>
+          <div class="cf-title">সদস্য ভর্তি ফরম</div>
+          <div id="cf-fee">ফরম মূল্য: ৫০/- টাকা (পঞ্চাশ টাকা মাত্র)</div>
+          <div class="cf-bar cf-navy cf-w273" id="cf-info-bar">সদস্যের তথ্য</div>
+          <div id="cf-rows">
+            <div class="fr"><div class="fl">সদস্যের নাম :</div><div class="fv" id="cv-name"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">পিতা/অভিভাবকের নাম :</div><div class="fv" id="cv-father"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">মাতার নাম :</div><div class="fv" id="cv-mother"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">জন্ম তারিখ :</div><div class="fv" id="cv-dob"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">জাতীয় পরিচয়পত্র/জন্মনিবন্ধন নম্বর :</div><div class="fv" id="cv-idno"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">লিঙ্গ :</div><div class="fv" id="cv-gender"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">পেশা :</div><div class="fv" id="cv-occupation"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">শিক্ষাগত যোগ্যতা :</div><div class="fv" id="cv-education"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">স্থায়ী ঠিকানা :</div><div class="fv" id="cv-village"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">ডাকঘর :</div><div class="fv" id="cv-postoffice"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">উপজেলা :</div><div class="fv" id="cv-upazila"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">জেলা :</div><div class="fv" id="cv-district"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">বর্তমান ঠিকানা :</div><div class="fv" id="cv-present"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">মোবাইল নম্বর :</div><div class="fv" id="cv-mobile"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">ই-মেইল (যদি থাকে) :</div><div class="fv" id="cv-email"><span class="t"></span></div></div>
+            <div class="fr"><div class="fl">রক্তের গ্রুপ :</div><div class="fv" id="cv-blood"><span class="t"></span></div></div>
+            <div class="fr two"><div class="fl">সদস্য হিসেবে যোগদানের কারণ/আগ্রহ :</div><div class="fv two" id="cv-reason"></div></div>
           </div>
-
-          <div id="card-meta">
-            <div>
-              <span class="meta-label" data-i18n="memberId">Member ID</span>
-              <span id="card-member-id" class="meta-value">MEM-0000</span>
-            </div>
-            <div>
-              <span class="meta-label" data-i18n="issued">Issued</span>
-              <span id="card-issue-date" class="meta-value">-</span>
-            </div>
+          <div class="cf-bar cf-green cf-w273" id="cf-decl-bar">সদস্যের অঙ্গীকার</div>
+          <p id="cf-decl">আমি নান্দুড়া অগ্রদূত ক্লাবের উদ্দেশ্য ও গঠনতন্ত্র মেনে চলব এবং ক্লাবের সামাজিক, মানবিক, ক্রীড়া ও উন্নয়নমূলক কার্যক্রমে সামর্থ্য অনুযায়ী সহযোগিতা করার অঙ্গীকার করছি।</p>
+          <div class="cf-sig">
+            <div class="c1"><span>আবেদনকারীর স্বাক্ষর:</span><span class="ul"><img id="sig-img" alt="" hidden></span></div>
+            <div class="c2"><span>তারিখ:</span>&nbsp;<span class="ul" id="cf-date-d"></span>/<span class="ul" id="cf-date-m"></span>/<span class="ul" id="cf-date-y"></span></div>
           </div>
-          <span id="card-shine" aria-hidden="true"></span>
-        </div>
-
-        <div id="card-footer">
-          <p><span data-i18n="issuedBy">Issued by</span> <span id="card-footer-club-name">Club Name</span></p>
+          <div class="cf-bar cf-navy cf-w435" id="cf-office-bar">অফিস ব্যবহারের জন্য</div>
+          <div class="cf-off">
+            <div class="w1"><span>সদস্য নম্বর:</span><span class="ul"></span></div>
+            <div>ভর্তি ফি: ৫০/- টাকা</div>
+            <div class="w2"><span>টাকা গ্রহণকারীর স্বাক্ষর:</span><span class="ul"></span></div>
+            <div class="w3"><span>অনুমোদনকারী:</span><span class="ul"></span></div>
+            <div></div>
+            <div class="w3"><span>ক্লাবের সিল:</span><span class="ul"></span></div>
+          </div>
+          <div class="cf-foot"><div class="fn">নান্দুড়া অগ্রদূত ক্লাব</div><div class="fa">নান্দুড়া, শিবগঞ্জ, বগুড়া</div></div>
         </div>
       </div>
 
-      <div id="theme-picker" role="radiogroup" aria-label="Card style">
-        <span class="tp-label" data-i18n="cardStyle">Card style</span>
-        <button type="button" class="swatch" role="radio" aria-checked="true" data-theme="navy" data-i18n-title="theme_navy" data-i18n-aria="theme_navy" title="Navy &amp; Gold" aria-label="Navy and Gold" style="--c:#1b2a4a;--g:#c9a227"></button>
-        <button type="button" class="swatch" role="radio" aria-checked="false" data-theme="emerald" data-i18n-title="theme_emerald" data-i18n-aria="theme_emerald" title="Emerald" aria-label="Emerald" style="--c:#0f3d33;--g:#d4b04a"></button>
-        <button type="button" class="swatch" role="radio" aria-checked="false" data-theme="burgundy" data-i18n-title="theme_burgundy" data-i18n-aria="theme_burgundy" title="Burgundy" aria-label="Burgundy" style="--c:#5a1626;--g:#d8b25c"></button>
-        <button type="button" class="swatch" role="radio" aria-checked="false" data-theme="royal" data-i18n-title="theme_royal" data-i18n-aria="theme_royal" title="Royal Purple" aria-label="Royal Purple" style="--c:#3b1f5e;--g:#d6b34f"></button>
+      <div id="card-scaler2" hidden>
+        <div id="card-frame2">
+          <div class="cf-head">
+            <div class="bism">বিসমিল্লাহির রাহমানির রাহিম</div>
+            <div class="cname">নান্দুড়া অগ্রদূত ক্লাব</div>
+            <div class="ctag">যুব সমাজ গড়বে আগামীর সমাজ</div>
+            <div class="caddr">নান্দুড়া, শিবগঞ্জ, বগুড়া</div>
+            <div class="cmotto">সেবা <i>|</i> ঐক্য <i>|</i> উন্নয়ন <i>|</i> মানবতা</div>
+          </div>
+          <div class="cf-title">জাতীয় পরিচয়পত্র / জন্মনিবন্ধনের কপি</div>
+          <div class="cf-sub">সদস্যের নাম: <b id="cv2-name"></b> &nbsp;&nbsp;|&nbsp;&nbsp; মোবাইল: <b id="cv2-mobile"></b></div>
+          <div class="cf-bar cf-navy nid-cap">সম্মুখ পার্শ্ব</div>
+          <div class="nid-box"><img id="nid-front-img" alt=""></div>
+          <div class="cf-bar cf-navy nid-cap">পিছন পার্শ্ব</div>
+          <div class="nid-box"><img id="nid-back-img" alt=""></div>
+          <div class="cf-foot"><div class="fn">নান্দুড়া অগ্রদূত ক্লাব</div><div class="fa">নান্দুড়া, শিবগঞ্জ, বগুড়া</div></div>
+        </div>
       </div>
 
       <!-- ===================== ACTION BUTTONS ===================== -->
       <div id="card-actions">
+        <button type="button" id="print-btn">
+          <i class="fa-solid fa-print"></i> <span data-i18n="print">Print (A4)</span>
+        </button>
         <button type="button" id="share-group-btn">
           <i class="fa-solid fa-share-nodes"></i> <span data-i18n="shareGroup">Share to Group</span>
         </button>
@@ -1032,13 +1330,14 @@
       const photoRemove = document.getElementById("photo-remove");
       const photoThumb = document.getElementById("photo-thumb");
       const cardPhoto = document.getElementById("card-photo");
-      const cardIcon = document.getElementById("card-icon");
-      const cardMemberId = document.getElementById("card-member-id");
-      const cardIssueDate = document.getElementById("card-issue-date");
 
       const MAX_PHOTO_BYTES = 8 * 1024 * 1024; // 8 MB upload limit
       const PHOTO_SIZE = 300;                  // exported square size in px
       let photoDataUrl = "";
+      // The NID copies are collected but no longer printed as page 2 (they will be emailed to the club admin instead).
+      const INCLUDE_NID_PAGE = false;
+      const NID = { front: "", back: "" };   // downsized JPEG data URLs of the ID copy
+      const NID_MAX_SIDE = 1400;
       let memberId = null;                     // { year, serial } generated once, stays the same across edits
 
 
@@ -1054,7 +1353,7 @@
           pageTitle: "Nandura Agradut Club",
           langLabel: "Language",
           tagline: "Youth society will build tomorrow's society",
-          formHeading: "Enter Member Details",
+          formHeading: "Member Details", formSub: "Tell us about the member so we can prepare the welcome card", fpDone: "completed",
           fullName: "Full Name",
           namePh: "Enter member's full name",
           designation: "Designation / Role",
@@ -1073,8 +1372,8 @@
           photo: "Photo",
           optional: "(optional)",
           uploadPhoto: "Upload photo",
-          dropTitle: "Tap or drop a photo",
-          dropSub: "JPG or PNG, up to 8 MB",
+          dropTitle: "Tap or drag and drop to upload your photo",
+          dropSub: "JPG, PNG (Max 8 MB)",
           remove: "Remove",
           adjust: "Adjust",
           frameTitle: "Frame your photo",
@@ -1083,8 +1382,8 @@
           frameHint: "Drag the photo to fit your face inside the circle.",
           cancel: "Cancel",
           done: "Done",
-          generate: "Generate Welcome Card",
-          previewHeading: "Welcome Card Preview",
+          generate: "Generate Membership Form",
+          previewHeading: "Membership Form Preview",
           welcome: "Welcome to the family",
           memberId: "Member ID",
           memberIdPrefix: "MEM",
@@ -1095,7 +1394,7 @@
           theme_emerald: "Emerald",
           theme_burgundy: "Burgundy",
           theme_royal: "Royal Purple",
-          download: "Download Card",
+          download: "Download Form",
           edit: "Edit Information",
           share: "Share on Facebook",
           shareGroup: "Share to Group",
@@ -1125,7 +1424,8 @@
           stmt3: "I express my interest in joining {club} as a member, because: {reason}.",
           pledgeLabel: "Pledge: ",
           secInfo: "Member Information",
-          secAddress: "Present Address",
+          gender: "Gender", selectGender: "Select gender", gender_male: "Male", gender_female: "Female", gender_other: "Other", presentAddress: "Current Address", presentPh: "e.g. city, country (if living abroad)", noPresent: "I don't have a separate current address (skip)", notApplicable: "N/A", sigLabel: "Applicant's signature", sigHint: "Sign here with your finger or mouse", sigUndo: "Undo", sigPen: "Pen", sigEraser: "Eraser", sigFull: "Full screen", sigExit: "Exit full screen", sigDone: "Done", sigClear: "Clear", err_sig: "Please sign in the box above.", nidLabel: "NID / Birth Certificate copy (front and back)", nidBtnFront: "Upload Front", nidBtnBack: "Upload Back", nidFormats: "Supported formats: JPEG, PNG", nidNone: "No file chosen", nidFront: "Tap to upload FRONT side", nidBack: "Tap to upload BACK side", err_nid: "Please upload both the front and back of your NID (or birth certificate).", print: "Print (A4)",
+          secAddress: "Permanent Address",
           secContact: "Contact & Other Details",
           secClub: "Club Membership",
           secDeclaration: "Member's Declaration",
@@ -1136,7 +1436,7 @@
           idNoPh: "10 to 17 digits",
           occupation: "Occupation",
           education: "Educational Qualification",
-          village: "Village",
+          village: "Permanent Address (Village)",
           postOffice: "Post Office",
           upazila: "Upazila",
           district: "District",
@@ -1170,7 +1470,7 @@
           pageTitle: "নান্দুড়া অগ্রদূত ক্লাব",
           langLabel: "ভাষা",
           tagline: "যুব সমাজ গড়বে আগামীর সমাজ",
-          formHeading: "সদস্যের তথ্য দিন",
+          formHeading: "সদস্যের তথ্য", formSub: "সদস্য সম্পর্কে তথ্য দিন, আমরা স্বাগত কার্ড তৈরি করে দেব", fpDone: "সম্পন্ন",
           fullName: "পূর্ণ নাম",
           namePh: "সদস্যের পূর্ণ নাম লিখুন",
           designation: "পদবি / ভূমিকা",
@@ -1189,8 +1489,8 @@
           photo: "ছবি",
           optional: "(ঐচ্ছিক)",
           uploadPhoto: "ছবি আপলোড করুন",
-          dropTitle: "ছবি ট্যাপ করুন অথবা টেনে আনুন",
-          dropSub: "JPG বা PNG, ৮ এমবি পর্যন্ত",
+          dropTitle: "ছবি আপলোড করতে ট্যাপ করুন অথবা টেনে আনুন",
+          dropSub: "JPG, PNG (সর্বোচ্চ ৮ এমবি)",
           remove: "সরান",
           adjust: "ঠিক করুন",
           frameTitle: "ছবি ফ্রেম করুন",
@@ -1199,8 +1499,8 @@
           frameHint: "বৃত্তের ভেতরে মুখ আনতে ছবিটি টেনে সরান।",
           cancel: "বাতিল",
           done: "সম্পন্ন",
-          generate: "স্বাগত কার্ড তৈরি করুন",
-          previewHeading: "স্বাগত কার্ডের প্রিভিউ",
+          generate: "সদস্য ভর্তি ফরম তৈরি করুন",
+          previewHeading: "সদস্য ভর্তি ফরমের প্রিভিউ",
           welcome: "পরিবারে স্বাগতম",
           memberId: "সদস্য আইডি",
           memberIdPrefix: "সদস্য",
@@ -1211,7 +1511,7 @@
           theme_emerald: "পান্না সবুজ",
           theme_burgundy: "গাঢ় লাল",
           theme_royal: "রাজকীয় বেগুনি",
-          download: "কার্ড ডাউনলোড",
+          download: "ফরম ডাউনলোড",
           edit: "তথ্য সম্পাদনা",
           share: "ফেসবুকে শেয়ার",
           shareGroup: "গ্রুপে শেয়ার করুন",
@@ -1241,7 +1541,8 @@
           stmt3: "আমি {club}-এ সদস্য হিসেবে যোগদানের আগ্রহ প্রকাশ করছি, কারণ: {reason}।",
           pledgeLabel: "অঙ্গীকারনামা: ",
           secInfo: "সদস্যের তথ্য",
-          secAddress: "বর্তমান ঠিকানা",
+          gender: "লিঙ্গ", selectGender: "লিঙ্গ নির্বাচন করুন", gender_male: "পুরুষ", gender_female: "মহিলা", gender_other: "অন্যান্য", presentAddress: "বর্তমান ঠিকানা", presentPh: "যেমন: শহর, দেশ (প্রবাসে থাকলে)", noPresent: "আমার আলাদা বর্তমান ঠিকানা নেই (এড়িয়ে যান)", notApplicable: "প্রযোজ্য নয়", sigLabel: "আবেদনকারীর স্বাক্ষর", sigHint: "এখানে আঙুল বা মাউস দিয়ে স্বাক্ষর করুন", sigUndo: "পূর্বাবস্থা", sigPen: "কলম", sigEraser: "ইরেজার", sigFull: "ফুল স্ক্রিন", sigExit: "ফুল স্ক্রিন থেকে বের হন", sigDone: "সম্পন্ন", sigClear: "মুছে ফেলুন", err_sig: "উপরের বক্সে স্বাক্ষর করুন।", nidLabel: "জাতীয় পরিচয়পত্র / জন্মনিবন্ধনের কপি (সামনে ও পিছনে)", nidBtnFront: "সামনের পাশ আপলোড", nidBtnBack: "পিছনের পাশ আপলোড", nidFormats: "সমর্থিত ফরম্যাট: JPEG, PNG", nidNone: "কোনো ফাইল নির্বাচিত নয়", nidFront: "সামনের পাশ আপলোড করুন", nidBack: "পিছনের পাশ আপলোড করুন", err_nid: "পরিচয়পত্রের সামনের ও পিছনের দুই পাশের ছবিই আপলোড করুন।", print: "প্রিন্ট (A4)",
+          secAddress: "স্থায়ী ঠিকানা",
           secContact: "যোগাযোগ ও অন্যান্য তথ্য",
           secClub: "ক্লাব সদস্যপদ",
           secDeclaration: "সদস্যের অঙ্গীকার",
@@ -1252,7 +1553,7 @@
           idNoPh: "১০ থেকে ১৭ সংখ্যা",
           occupation: "পেশা",
           education: "শিক্ষাগত যোগ্যতা",
-          village: "গ্রাম",
+          village: "স্থায়ী ঠিকানা (গ্রাম)",
           postOffice: "ডাকঘর",
           upazila: "উপজেলা",
           district: "জেলা",
@@ -1298,7 +1599,8 @@
         "member-email": "err_email", "member-blood": "err_blood", "member-agree": "err_agree",
         "member-father": "err_required", "member-mother": "err_required", "member-occupation": "err_required",
         "member-education": "err_required", "member-village": "err_required", "member-postoffice": "err_required",
-        "member-upazila": "err_required", "member-district": "err_required", "member-reason": "err_required"
+        "member-upazila": "err_required", "member-district": "err_required", "member-reason": "err_required",
+        "member-gender": "err_required", "member-present": "err_required"
       };
       const errorFor = (id) => t(FIELD_ERROR_KEYS[id] || "err_required");
       const YEAR_SPAN = 50; // how many years back the dropdown goes
@@ -1313,7 +1615,6 @@
         dob: (v) => /^\d{4}-\d{2}-\d{2}$/.test(v) && v >= "1900-01-01" && v <= new Date().toISOString().slice(0, 10)
       };
 
-      const cardMemberName = document.getElementById("card-member-name");
 
       const editBtn = document.getElementById("edit-btn");
       const downloadBtn = document.getElementById("download-btn");
@@ -1364,6 +1665,7 @@
       // Return an error message for a field, or "" if it is valid.
       function getFieldError(field) {
         const value = field.value.trim();
+        if (field.id === "member-present" && document.getElementById("member-present-skip").checked) return "";
         if (field === nameInput) {
           return value.length < 2 ? errorFor(field.id) : "";
         }
@@ -1373,665 +1675,122 @@
         return value === "" ? errorFor(field.id) : "";
       }
 
-      // Fields that must be filled in (the end year only counts when shown).
-      function getRequiredFields() {
-        const fields = [nameInput, ...extraFields];
-        // Keep on-page order so the first problem field gets the focus
-        return fields.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      /* ---------- NID front / back upload ---------- */
+      function showNidError(msg) {
+        const group = document.getElementById("nid-group");
+        let el = document.getElementById("nid-error");
+        if (!msg) { if (el) el.remove(); return; }
+        if (!el) { el = document.createElement("p"); el.id = "nid-error"; el.className = "field-error"; group.appendChild(el); }
+        el.textContent = msg;
       }
 
-      // Validate all required fields; returns true if the form is valid.
-      function validateForm() {
-        let firstInvalid = null;
-
-        getRequiredFields().forEach((field) => {
-          const message = getFieldError(field);
-          setFieldInvalid(field, !!message, message);
-          if (message && !firstInvalid) firstInvalid = field;
-        });
-
-        if (firstInvalid) firstInvalid.focus(); // jump to the first problem
-        return !firstInvalid;
-      }
-
-      // Fill a <select> with years from `from` down to `to` (newest first).
-      function fillYears(select, from, to, placeholder) {
-        const previous = select.value;
-        select.innerHTML = "";
-
-        const ph = document.createElement("option");
-        ph.value = "";
-        ph.textContent = placeholder;
-        ph.disabled = true;
-        ph.selected = true;
-        select.appendChild(ph);
-
-        for (let year = from; year >= to; year--) {
-          const opt = document.createElement("option");
-          opt.value = String(year);
-          opt.textContent = num(year);
-          select.appendChild(opt);
-        }
-
-        // Keep the earlier choice if it is still a valid option.
-        if (previous && select.querySelector('option[value="' + previous + '"]')) {
-          select.value = previous;
-        }
-      }
-
-      // Push current form values into the card preview placeholders.
-      // Fill a sentence template; {tokens} become bold values.
-      function fillText(el, template, vals) {
-        el.textContent = "";
-        template.split(/(\{\w+\})/).forEach((part) => {
-          const m = part.match(/^\{(\w+)\}$/);
-          if (!m) { if (part) el.appendChild(document.createTextNode(part)); return; }
-          const s = document.createElement("strong");
-          s.textContent = vals[m[1]] || "\u2014";
-          el.appendChild(s);
-        });
-      }
-
-      function fillStatement() {
-        const v = (id) => document.getElementById(id).value.trim();
-        const d = v("member-dob").split("-").map(Number);
-        const dob = d.length === 3 ? new Date(d[0], d[1] - 1, d[2]).toLocaleDateString(lang === "bn" ? "bn-BD" : "en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
-        const groups = [
-          ["secInfo", [["fatherName", v("member-father")], ["motherName", v("member-mother")], ["dob", dob],
-                       ["idShort", num(toEn(v("member-idno")))], ["occupation", v("member-occupation")], ["education", v("member-education")]]],
-          ["secAddress", [["village", v("member-village")], ["postOffice", v("member-postoffice")],
-                          ["upazila", v("member-upazila")], ["district", v("member-district")]]],
-          ["secContact", [["mobile", num(toEn(v("member-mobile")))], ["email", v("member-email")], ["bloodGroup", v("member-blood")]]]
-        ];
-        const box = document.getElementById("stmt-rows");
-        box.textContent = "";
-        const add = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; parent.appendChild(e); return e; };
-        groups.forEach(([titleKey, rows]) => {
-          const g = add(box, "div", "sg", "");
-          add(g, "h5", "", t(titleKey));
-          rows.forEach(([k, val]) => {
-            if (!val) return; // optional email left empty
-            const r = add(g, "div", "sr", "");
-            add(r, "span", "sl", t(k));
-            add(r, "span", "sv" + (k === "email" ? " mail" : ""), val);
-          });
-        });
-        const reason = add(box, "div", "sg", "");
-        add(reason, "h5", "", t("reasonShort"));
-        add(reason, "p", "reason-text", v("member-reason"));
-
-        const pledge = document.getElementById("stmt-4");
-        pledge.textContent = "";
-        const b = document.createElement("strong");
-        b.textContent = t("pledgeLabel");
-        pledge.append(b, t("declaration"));
-      }
-
-      function populateCardPreview() {
-        fillStatement();
-        cardMemberName.textContent = nameInput.value.trim();
-
-        // Photo (falls back to the badge icon when none is chosen)
-        if (photoDataUrl) {
-          cardPhoto.src = photoDataUrl;
-          cardPhoto.hidden = false;
-          cardIcon.hidden = true;
-        } else {
-          cardPhoto.hidden = true;
-          cardPhoto.removeAttribute("src");
-          cardIcon.hidden = false;
-        }
-
-        // Member ID: created on first generation, then kept stable through edits
-        if (!memberId) {
-          memberId = { year: new Date().getFullYear(), serial: Math.floor(1000 + Math.random() * 9000) };
-        }
-        cardMemberId.textContent = t("memberIdPrefix") + "-" + num(memberId.year) + "-" + num(memberId.serial);
-
-        cardIssueDate.textContent = new Date().toLocaleDateString(lang === "bn" ? "bn-BD" : "en-GB", {
-          day: "numeric", month: "short", year: "numeric"
-        });
-        document.dispatchEvent(new Event("card-changed"));
-      }
-
-      /* ---------- Photo upload ---------- */
-
-      function clearPhoto() {
-        photoDataUrl = "";
-        photoInput.value = "";
-        photoThumb.style.backgroundImage = "";
-        photoThumb.classList.remove("has-photo");
-        photoRemove.hidden = true;
-        frame.img = null;
-        frame.zoom = 1;
-        frame.fx = frame.fy = 0;
-        frameZoom.value = 1;
-        framer.hidden = true;
-      }
-
-      /* ---------- Photo framing (drag + zoom) ---------- */
-
-      function frameMetrics() {
-        const S = frameStage.clientWidth;
-        const D = S * 0.72; // crop circle diameter (matches #frame-mask inset)
-        const base = D / Math.min(frame.img.naturalWidth, frame.img.naturalHeight);
-        const scale = base * frame.zoom;
-        return { S, D, scale, w: frame.img.naturalWidth * scale, h: frame.img.naturalHeight * scale };
-      }
-
-      // Position the photo, keeping the circle fully covered.
-      function renderFrame() {
-        if (!frame.img) return;
-        const m = frameMetrics();
-        const maxX = Math.max(0, (m.w - m.D) / 2) / m.D;
-        const maxY = Math.max(0, (m.h - m.D) / 2) / m.D;
-        frame.fx = Math.min(maxX, Math.max(-maxX, frame.fx));
-        frame.fy = Math.min(maxY, Math.max(-maxY, frame.fy));
-        frameImg.style.width = m.w + "px";
-        frameImg.style.height = m.h + "px";
-        frameImg.style.left = (m.S / 2 + frame.fx * m.D - m.w / 2) + "px";
-        frameImg.style.top = (m.S / 2 + frame.fy * m.D - m.h / 2) + "px";
-      }
-
-      // Crop exactly what is inside the circle and store it for the card.
-      function commitFrame() {
-        if (!frame.img) return;
-        const m = frameMetrics();
-        const side = m.D / m.scale;
-        const sx = frame.img.naturalWidth / 2 - (frame.fx * m.D) / m.scale - side / 2;
-        const sy = frame.img.naturalHeight / 2 - (frame.fy * m.D) / m.scale - side / 2;
-        const canvas = document.createElement("canvas");
-        canvas.width = canvas.height = PHOTO_SIZE;
-        canvas.getContext("2d").drawImage(frame.img, sx, sy, side, side, 0, 0, PHOTO_SIZE, PHOTO_SIZE);
-        photoDataUrl = canvas.toDataURL("image/jpeg", 0.9);
-        photoThumb.style.backgroundImage = "url(" + photoDataUrl + ")";
-        photoThumb.classList.add("has-photo");
-        photoRemove.hidden = false;
-      }
-
-      function setupFraming() {
-        let drag = null;
-        frameStage.addEventListener("pointerdown", (e) => {
-          if (!frame.img) return;
-          drag = { x: e.clientX, y: e.clientY, fx: frame.fx, fy: frame.fy };
-          frameStage.setPointerCapture(e.pointerId);
-          frameStage.classList.add("dragging");
-        });
-        frameStage.addEventListener("pointermove", (e) => {
-          if (!drag) return;
-          const D = frameMetrics().D;
-          frame.fx = drag.fx + (e.clientX - drag.x) / D;
-          frame.fy = drag.fy + (e.clientY - drag.y) / D;
-          renderFrame();
-        });
-        const endDrag = () => {
-          if (!drag) return;
-          drag = null;
-          frameStage.classList.remove("dragging");
-          commitFrame();
+      function setupNid(side) {
+        const $ = (x) => document.getElementById("nid-" + side + x);
+        const input = $(""), card = $("-tile"), rm = $("-rm"), btn = $("-btn"), prev = $("-prev");
+        const nameEl = $("-name"), pct = $("-pct"), bar = $("-bar");
+        const setProg = (v) => { bar.style.width = v + "%"; pct.textContent = v && v < 100 ? v + "%" : ""; };
+        const clear = () => {
+          NID[side] = ""; input.value = ""; prev.removeAttribute("src"); card.classList.remove("has"); rm.hidden = true;
+          nameEl.textContent = t("nidNone"); nameEl.dataset.i18n = "nidNone"; setProg(0);
         };
-        frameStage.addEventListener("pointerup", endDrag);
-        frameStage.addEventListener("pointercancel", endDrag);
-
-        function setZoom(z) {
-          frame.zoom = Math.min(3, Math.max(1, z));
-          frameZoom.value = frame.zoom;
-          renderFrame();
-          commitFrame();
-        }
-        frameZoom.addEventListener("input", () => setZoom(parseFloat(frameZoom.value)));
-        frameStage.addEventListener("wheel", (e) => {
-          if (!frame.img) return;
-          e.preventDefault();
-          setZoom(frame.zoom - e.deltaY * 0.002);
-        }, { passive: false });
-
-        // Keyboard: arrows move, +/- zoom
-        frameStage.addEventListener("keydown", (e) => {
-          if (!frame.img) return;
-          const step = 0.04;
-          if (e.key === "ArrowLeft") frame.fx -= step;
-          else if (e.key === "ArrowRight") frame.fx += step;
-          else if (e.key === "ArrowUp") frame.fy -= step;
-          else if (e.key === "ArrowDown") frame.fy += step;
-          else if (e.key === "+" || e.key === "=") return setZoom(frame.zoom + 0.1);
-          else if (e.key === "-") return setZoom(frame.zoom - 0.1);
-          else return;
-          e.preventDefault();
-          renderFrame();
-          commitFrame();
+        const fail = (k) => { clear(); showNidError(t(k)); };
+        btn.addEventListener("click", () => input.click());
+        card.addEventListener("dragover", (e) => { e.preventDefault(); card.classList.add("drag"); });
+        card.addEventListener("dragleave", () => card.classList.remove("drag"));
+        card.addEventListener("drop", (e) => {
+          e.preventDefault(); card.classList.remove("drag");
+          if (e.dataTransfer.files.length) { try { input.files = e.dataTransfer.files; } catch (_) {} input.dispatchEvent(new Event("change")); }
         });
-        window.addEventListener("resize", renderFrame);
-      }
-
-      // Read the chosen image, crop it to a centred square and store it as a small JPEG.
-      function handlePhotoChange() {
-        const file = photoInput.files[0];
-        setFieldInvalid(photoInput, false);
-        if (!file) { clearPhoto(); return; }
-
-        if (!file.type.startsWith("image/")) {
-          clearPhoto();
-          setFieldInvalid(photoInput, true, t("err_notImage"));
-          return;
-        }
-        if (file.size > MAX_PHOTO_BYTES) {
-          clearPhoto();
-          setFieldInvalid(photoInput, true, t("err_tooLarge"));
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.onerror = () => {
-          clearPhoto();
-          setFieldInvalid(photoInput, true, t("err_readFail"));
-        };
-        reader.onload = () => {
-          const img = new Image();
-          img.onerror = () => {
-            clearPhoto();
-            setFieldInvalid(photoInput, true, t("err_openFail"));
+        input.addEventListener("change", () => {
+          const file = input.files[0];
+          if (!file) { clear(); return; }
+          if (!file.type.startsWith("image/")) { fail("err_notImage"); return; }
+          if (file.size > MAX_PHOTO_BYTES) { fail("err_tooLarge"); return; }
+          delete nameEl.dataset.i18n; nameEl.textContent = file.name; setProg(5);
+          const reader = new FileReader();
+          reader.onerror = () => fail("err_readFail");
+          reader.onprogress = (e) => { if (e.lengthComputable) setProg(Math.max(5, Math.round(e.loaded / e.total * 70))); };
+          reader.onload = () => {
+            setProg(80);
+            const img = new Image();
+            img.onerror = () => fail("err_openFail");
+            img.onload = () => {
+              const k = Math.min(1, NID_MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+              const c = document.createElement("canvas");
+              c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+              const ctx = c.getContext("2d");
+              ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+              ctx.drawImage(img, 0, 0, c.width, c.height);
+              NID[side] = c.toDataURL("image/jpeg", 0.88);
+              prev.src = NID[side];
+              card.classList.add("has");
+              btn.textContent = "";  // label refreshed below
+              rm.hidden = false; setProg(100);
+              if (NID.front && NID.back) showNidError("");
+              btn.textContent = t("nidBtn" + side.charAt(0).toUpperCase() + side.slice(1));
+            };
+            img.src = reader.result;
           };
-          img.onload = () => {
-            // Open the framing editor, centred and fitted; commit the default crop.
-            frame.img = img;
-            frame.zoom = 1;
-            frame.fx = frame.fy = 0;
-            frameZoom.value = 1;
-            frameImg.src = img.src;
-            framer.hidden = false;
-            renderFrame();
-            commitFrame();
-          };
-          img.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-      }
-
-      // Switch visible section: show the card, hide the form.
-      function showCardPreview() {
-        formSection.hidden = true;
-        cardPreview.hidden = false;
-        cardFrame.classList.remove("reveal");
-        void cardFrame.offsetWidth; // restart the reveal animation
-        cardFrame.classList.add("reveal");
-        cardPreview.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-      // Switch visible section: show the form, hide the card.
-      // Input values are left untouched, so previously entered data persists.
-      function showForm() {
-        cardPreview.hidden = true;
-        formSection.hidden = false;
-        formSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-
-      /* ---------- Language switching ---------- */
-
-
-      function applyLanguage(next) {
-        lang = I18N[next] ? next : "en";
-        document.documentElement.lang = lang;
-        document.title = t("pageTitle");
-
-        // Static text, placeholders, aria-labels and tooltips
-        document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });
-        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-        document.querySelectorAll("[data-i18n-aria]").forEach((el) => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
-        document.querySelectorAll("[data-i18n-title]").forEach((el) => { el.title = t(el.dataset.i18nTitle); });
-        // Upazila / district start as Shibganj / Bogura, in the chosen language, until the user edits them
-        document.querySelectorAll("[data-default]").forEach((el) => { if (el.dataset.touched !== "1") el.value = t(el.dataset.default); });
-
-        // Club name (header, card header, card footer)
-        ["club-name-title", "card-club-name", "card-footer-club-name"].forEach((id) => {
-          document.getElementById(id).textContent = CLUB[lang];
+          reader.readAsDataURL(file);
         });
-
-        // Any error messages already on screen
-        document.querySelectorAll(".field-error").forEach((el) => {
-          const fieldId = el.id.replace(/-error$/, "");
-          if (FIELD_ERROR_KEYS[fieldId]) el.textContent = errorFor(fieldId);
-          else el.remove();
-        });
-
-        // If the card is on screen, regenerate it in the new language
-        if (!cardPreview.hidden) populateCardPreview();
-
+        rm.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); clear(); });
       }
 
-      /* ---------- Event handlers ---------- */
+      /* ---------- Signature pad ----------
+         Strokes are stored as normalised points (x, y, width divided by the pad width), so the
+         signature stays sharp when the screen is resized or rotated, and Undo removes one stroke. */
+      const SIG = { strokes: [], hist: [], drawing: null, W: 0, H: 0, dpr: 1, color: "#0f1f4a", mult: 1, tool: "pen" };
+      const SIG_REF = 340;   // pen widths are stored relative to a 340px-wide pad
+      const SIG_COLORS = ["#0f1f4a", "#111111", "#1d4ed8", "#dc2626", "#15803d"];
+      const SIG_INK = "#0f1f4a";
+      const SIG_MAX_W = 3.4, SIG_MIN_W = 1.3;   // pen width in px on the pad
 
-      function handleFormSubmit(event) {
-        event.preventDefault(); // stop native page reload
+      function sigMid(a, b) { return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; }
 
-        if (!validateForm()) {
-          return; // inline invalid states already applied above
+      // Draw one curved piece of a stroke (between the midpoints of neighbouring points).
+      function sigSeg(ctx, pts, i, k, tail) {
+        const p1 = pts[i - 1], p2 = pts[i];
+        const from = i >= 2 ? sigMid(pts[i - 2], p1) : p1;
+        ctx.lineWidth = Math.max(0.6, (tail ? p2.w : p1.w) * k);
+        ctx.beginPath();
+        ctx.moveTo(from.x * k, from.y * k);
+        if (tail) { ctx.lineTo(p2.x * k, p2.y * k); }
+        else { const to = sigMid(p1, p2); ctx.quadraticCurveTo(p1.x * k, p1.y * k, to.x * k, to.y * k); }
+        ctx.stroke();
+      }
+
+      function sigDrawStroke(ctx, pts, k) {
+        if (!pts.length) return;
+        const col = pts.color || SIG_INK;
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineCap = "round"; ctx.lineJoin = "round";
+        if (pts.length < 2) {   // a single tap becomes a dot
+          ctx.beginPath(); ctx.arc(pts[0].x * k, pts[0].y * k, Math.max(0.8, pts[0].w * k / 2), 0, Math.PI * 2); ctx.fill(); return;
         }
-
-        populateCardPreview();
-        showCardPreview();
-        invalidateCardBlob();
+        for (let i = 1; i < pts.length; i++) sigSeg(ctx, pts, i, k, false);
+        sigSeg(ctx, pts, pts.length - 1, k, true);
       }
 
-      function handleEditClick() {
-        showForm();
+      function sigBounds() {
+        let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+        SIG.strokes.forEach((st) => st.forEach((p) => {
+          x0 = Math.min(x0, p.x - p.w / 2); y0 = Math.min(y0, p.y - p.w / 2);
+          x1 = Math.max(x1, p.x + p.w / 2); y1 = Math.max(y1, p.y + p.w / 2);
+        }));
+        return { x0, y0, x1, y1 };
       }
 
-      // Draw the card into a canvas (waits for fonts first, never hangs).
-      async function renderCardCanvas() {
-        if (typeof html2canvas === "undefined") throw new Error("html2canvas-missing");
-
-        if (document.fonts && document.fonts.load) {
-          // Make sure the exact fonts used on the card (incl. Bengali) are ready before capture
-          const sample = cardFrame.textContent;
-          const loads = [
-            document.fonts.load('600 16px "Poppins"', sample),
-            document.fonts.load('700 16px "Playfair Display"', sample),
-            document.fonts.load('400 16px "Noto Sans Bengali"', sample),
-            document.fonts.load('600 16px "Noto Sans Bengali"', sample),
-            document.fonts.load('700 16px "Noto Serif Bengali"', sample)
-          ];
-          await Promise.race([Promise.all(loads).then(() => document.fonts.ready), new Promise((r) => setTimeout(r, 3000))]);
-        }
-
-        return html2canvas(cardFrame, {
-          scale: 3,               // 420px card -> 1260px wide image
-          backgroundColor: null,  // keep rounded corners transparent
-          useCORS: true,
-          onclone: (doc) => {
-            // Export at one fixed size on every screen, with no animation state.
-            const clone = doc.getElementById("card-frame");
-            clone.classList.remove("reveal");
-            clone.style.width = "420px";
-            clone.style.maxWidth = "none";
-            clone.style.boxShadow = "none";
-            const shine = clone.querySelector("#card-shine");
-            if (shine) shine.remove();
-          }
-        });
+      // Enough ink to count as a signature (not just an accidental dot)
+      function sigIsValid() {
+        if (!SIG.strokes.length) return false;
+        const b = sigBounds();
+        return Math.max(b.x1 - b.x0, b.y1 - b.y0) > 0.04;
       }
 
-      function cardFilename() {
-        const safeName = nameInput.value.trim().replace(/[^a-zA-Z0-9\u0980-\u09FF]+/g, "-").replace(/^-+|-+$/g, "").toLowerCase() || "member";
-        return "welcome-card-" + safeName + ".png";
-      }
-
-      function canvasToBlob(canvas) {
-        return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-      }
-
-      // Facebook, Messenger, Instagram and other in-app browsers can't save downloaded files.
-      const IN_APP = /FBAN|FBAV|FB_IAB|FBIOS|FB4A|Messenger|Instagram|Line\/|MicroMessenger|Snapchat|TikTok|BytedanceWebview|Twitter|; wv\)/i.test(navigator.userAgent || "");
-
-      // Show the card image full-size so the user can press and hold to save it.
-      function showSaveOverlay(blob) {
-        const img = document.getElementById("so-img");
-        const reader = new FileReader();
-        reader.onload = () => { img.src = reader.result; document.getElementById("save-overlay").hidden = false; };
-        reader.readAsDataURL(blob);
-      }
-
-      // Returns true when a normal download was started, false when the overlay was shown instead.
-      function saveBlob(blob, filename) {
-        if (IN_APP || !("download" in document.createElement("a"))) {
-          showSaveOverlay(blob);
-          return false;
-        }
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = filename;
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 10000);
-        return true;
-      }
-
-      // Convert the card frame to a PNG and trigger a file download.
-      async function handleDownloadClick() {
-        const originalHTML = downloadBtn.innerHTML;
-        downloadBtn.disabled = true;
-        downloadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + t("preparing");
-
-        try {
-          const blob = await getCardBlob();
-          if (!blob) throw new Error("no-blob");
-          saveBlob(blob, cardFilename());
-        } catch (error) {
-          if (error && error.message === "html2canvas-missing") {
-            alert(t("alert_noTool"));
-          } else {
-            console.error("Card download failed:", error);
-            alert(t("alert_saveFail"));
-          }
-        } finally {
-          downloadBtn.disabled = false;
-          downloadBtn.innerHTML = originalHTML;
-        }
-      }
-
-      /* ---------- Share to Group (phone share sheet) ---------- */
-
-      // The card image is prepared in the background as soon as the card is shown
-      // (and again after any change), so the Share tap can open the share sheet
-      // instantly. Browsers only allow sharing right after a tap.
-      let blobPromise = null;
-      let prepareTimer = null;
-
-      function getCardBlob() {
-        if (!blobPromise) {
-          blobPromise = renderCardCanvas().then(canvasToBlob);
-          blobPromise.catch(() => { blobPromise = null; });
-        }
-        return blobPromise;
-      }
-
-      function invalidateCardBlob() {
-        blobPromise = null;
-        clearTimeout(prepareTimer);
-        if (cardPreview.hidden) return;
-        prepareTimer = setTimeout(() => { getCardBlob().catch(() => {}); }, 500);
-      }
-
-      async function handleShareGroupClick() {
-        const originalHTML = shareGroupBtn.innerHTML;
-        shareGroupBtn.disabled = true;
-        shareGroupBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + t("preparing");
-
-        try {
-          const blob = await getCardBlob();
-          if (!blob) throw new Error("no-blob");
-          const file = new File([blob], cardFilename(), { type: "image/png" });
-
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-              await navigator.share({ files: [file], title: t("shareGroupTitle"), text: t("shareGroupText") });
-            } catch (err) {
-              if (!err || err.name !== "AbortError") throw err; // closing the sheet is not an error
-            }
-          } else {
-            // Browser can't share files: save the card and tell the user what to do next
-            if (saveBlob(blob, cardFilename())) alert(t("alert_shareSaved"));
-          }
-        } catch (error) {
-          if (error && error.message === "html2canvas-missing") {
-            alert(t("alert_noTool"));
-          } else {
-            console.error("Card share failed:", error);
-            alert(t("alert_saveFail"));
-          }
-        } finally {
-          shareGroupBtn.disabled = false;
-          shareGroupBtn.innerHTML = originalHTML;
-        }
-      }
-
-      // Share the card IMAGE (not a link): opens the phone's share sheet with the PNG,
-      // where the user picks Facebook. Facebook's web share URL can only carry a link,
-      // so if the browser can't share files, the card is saved for posting by hand.
-      async function handleShareClick() {
-        const originalHTML = shareBtn.innerHTML;
-        shareBtn.disabled = true;
-        shareBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + t("preparing");
-
-        try {
-          const blob = await getCardBlob();
-          if (!blob) throw new Error("no-blob");
-          const file = new File([blob], cardFilename(), { type: "image/png" });
-
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-              await navigator.share({ files: [file], title: t("shareGroupTitle"), text: t("shareQuote") });
-            } catch (err) {
-              if (!err || err.name !== "AbortError") throw err;
-            }
-          } else {
-            if (saveBlob(blob, cardFilename())) alert(t("alert_fbSaved"));
-          }
-        } catch (error) {
-          if (error && error.message === "html2canvas-missing") {
-            alert(t("alert_noTool"));
-          } else {
-            console.error("Card share failed:", error);
-            alert(t("alert_saveFail"));
-          }
-        } finally {
-          shareBtn.disabled = false;
-          shareBtn.innerHTML = originalHTML;
-        }
-      }
-
-      // Clear the invalid state on a field as soon as the user starts typing.
-      function handleFieldInput(event) {
-        if (!getFieldError(event.target)) {
-          setFieldInvalid(event.target, false);
-        }
-      }
-
-      /* ---------- Init ---------- */
-
-      function init() {
-        form.addEventListener("submit", handleFormSubmit);
-        editBtn.addEventListener("click", handleEditClick);
-        downloadBtn.addEventListener("click", handleDownloadClick);
-        const overlay = document.getElementById("save-overlay");
-        const closeOverlay = () => { overlay.hidden = true; document.getElementById("so-img").removeAttribute("src"); };
-        document.getElementById("so-close").addEventListener("click", closeOverlay);
-        overlay.addEventListener("click", (e) => { if (e.target === overlay) closeOverlay(); });
-        document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeOverlay(); });
-        const notice = document.getElementById("iab-notice");
-
-        // Try to leave the Facebook / Messenger browser for a real browser.
-        // Android: an intent link opens Chrome. iPhone: the googlechrome:// link opens Chrome if installed.
-        const isWeb = /^https?:$/.test(location.protocol);
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-        // Show the notice only when this is NOT a real Chromium-based browser:
-        // inside Facebook / Messenger / other apps, or in Safari / Firefox and similar.
-        const IS_CHROMIUM = /Chrome\/|Chromium\/|CriOS\/|EdgA\/|Edg\/|OPR\/|SamsungBrowser\//.test(navigator.userAgent);
-        notice.hidden = !(IN_APP || !IS_CHROMIUM);
-        notice.querySelector("[data-i18n]").setAttribute("data-i18n", IN_APP ? "iabNotice" : "browserNotice");
-        if (!isAndroid && !isIOS) document.getElementById("iab-open").hidden = true; // no "open in Chrome" link on desktop
-        function openInChrome() {
-          if (!isWeb) return;
-          const rest = location.host + location.pathname + location.search;
-          if (isAndroid) {
-            location.href = "intent://" + rest + "#Intent;scheme=" + location.protocol.replace(":", "") + ";package=com.android.chrome;end";
-          } else if (isIOS) {
-            location.href = (location.protocol === "https:" ? "googlechrome://" : "googlechrome-http://") + rest;
-          }
-        }
-        document.getElementById("iab-open").addEventListener("click", openInChrome);
-        document.getElementById("iab-copy").addEventListener("click", () => {
-          const done = () => alert(t("linkCopied"));
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(location.href).then(done, () => { prompt("", location.href); });
-          } else {
-            const ta = document.createElement("textarea");
-            ta.value = location.href;
-            document.body.appendChild(ta);
-            ta.select();
-            let ok = false;
-            try { ok = document.execCommand("copy"); } catch (e) { /* ignore */ }
-            document.body.removeChild(ta);
-            if (ok) done(); else prompt("", location.href);
-          }
-        });
-        // Automatic attempt, once per visit, so people usually don't have to tap anything.
-        if (IN_APP && isWeb && isAndroid) {
-          let tried = false;
-          try { tried = sessionStorage.getItem("chromeTried") === "1"; sessionStorage.setItem("chromeTried", "1"); } catch (e) { /* ignore */ }
-          if (!tried) setTimeout(openInChrome, 300);
-        }
-        document.getElementById("iab-close").addEventListener("click", () => { notice.hidden = true; });
-        shareBtn.addEventListener("click", handleShareClick);
-        shareGroupBtn.addEventListener("click", handleShareGroupClick);
-        document.addEventListener("card-changed", invalidateCardBlob);
-
-        setupFraming();
-        photoInput.addEventListener("change", handlePhotoChange);
-        photoRemove.addEventListener("click", () => {
-          clearPhoto();
-          setFieldInvalid(photoInput, false);
-        });
-
-
-        document.querySelectorAll("[data-default]").forEach((el) => el.addEventListener("input", () => { el.dataset.touched = "1"; }));
-        document.getElementById("member-dob").max = new Date().toISOString().slice(0, 10);
-
-        [nameInput, ...extraFields].forEach((field) => {
-          field.addEventListener("input", handleFieldInput);
-        });
-
-        applyLanguage("bn");
-      }
-
-      document.addEventListener("DOMContentLoaded", init);
-    })();
-  </script>
-
-  <script>
-    /* v2 UI wiring: role buttons, avatar drop zone, framing modal, theme picker */
-    (function () {
-      const $ = (id) => document.getElementById(id);
-      const setChecked = (btn, group) => group.querySelectorAll("button").forEach((b) => b.setAttribute("aria-checked", String(b === btn)));
-
-      $("membership-form").addEventListener("submit", () => setTimeout(() => {
-        const err = document.querySelector(".field-error");
-        if (err) err.scrollIntoView({ block: "center", behavior: "smooth" });
-      }, 0));
-
-      // Avatar: keyboard + drag and drop
-      const row = $("photo-row"), input = $("member-photo"), thumb = $("photo-thumb");
-      thumb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
-      ["dragenter", "dragover"].forEach((t) => row.addEventListener(t, (e) => { e.preventDefault(); row.classList.add("dragover"); }));
-      ["dragleave", "drop"].forEach((t) => row.addEventListener(t, (e) => { e.preventDefault(); row.classList.remove("dragover"); }));
-      row.addEventListener("drop", (e) => {
-        if (!e.dataTransfer.files.length) return;
-        input.files = e.dataTransfer.files;
-        input.dispatchEvent(new Event("change"));
-      });
-
-      // Framing modal
-      const framer = $("photo-framer");
-      const close = () => { framer.hidden = true; };
-      $("frame-done").addEventListener("click", close);
-      $("frame-cancel").addEventListener("click", () => { $("photo-remove").click(); close(); });
-      $("photo-adjust").addEventListener("click", () => { framer.hidden = false; window.dispatchEvent(new Event("resize")); $("frame-stage").focus(); });
-      framer.addEventListener("click", (e) => { if (e.target === framer) close(); });
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !framer.hidden) close(); });
-
-      // Theme picker
-      const picker = $("theme-picker");
-      picker.addEventListener("click", (e) => {
-        const b = e.target.closest(".swatch"); if (!b) return;
-        $("card-frame").dataset.theme = b.dataset.theme; setChecked(b, picker);
-        document.dispatchEvent(new Event("card-changed"));
-      });
-    })();
-  </script>
-</body>
-</html>
+      // Transparent PNG, cropped tightly around the ink, for the printed form.
+      function sigDataUrl() {
+        if (!SIG.strokes.length) return "";
+        const b = sigBounds(), pad = 0.01;
+        const w = b.x1 - b.x0 + pad * 2, h = b.y1 - b.y0 + pad * 2;
+        const k = Math.min(900 / w, 300 / h);
+        const c = document.createElement("canvas");
+        c.width = Math.max(1, Math.round(w * k)); c.height =
